@@ -1,45 +1,44 @@
 import java.io.*;
-public class SymTab
-{
+
+public class SymTab {
 	public static void main(String args[])throws Exception
 	{
-		FileReader FP=new FileReader("/home/student/Desktop/Pass1/Input.txt");
+		FileReader FP=new FileReader();
 		BufferedReader bufferedReader = new BufferedReader(FP);
 	
 		
 		String line=null;
 		int line_count=0,LC=0,symTabLine=0,opTabLine=0,litTabLine=0,poolTabLine=0;
 		  
-		 //Data Structures
 		 final int MAX=100;
 		 String SymbolTab[][]=new String[MAX][3];
 		 String OpTab[][]=new String[MAX][3];
 		 String LitTab[][]=new String[MAX][2];
 		 int PoolTab[]=new int[MAX];
-		 int litTabAddress=0;
-/---------------------------------------------------------------------------------------------------/
-		 
+
+		
 		 System.out.println("_________________");
 		    while((line = bufferedReader.readLine()) != null)
 		     {
-		     	 String[] tokens = line.split("\t");
+		     	 String tokens[] = line.split("\t");
 		     	if(line_count==0)
 		     	{
 		     		LC=Integer.parseInt(tokens[1]);					
-		     												//set LC to operand of START
-		     		for(int i=0;i<tokens.length;i++)		//for printing the input program
+		     												
+		     		for(int i=0;i<tokens.length;i++)
 		     	 		System.out.print(tokens[i]+"\t");
-		     	 	System.out.println("");
+		     		System.out.println("");
+		     		
 		     	}
 		     	else
 		     	{
-			     	 for(int i=0;i<tokens.length;i++) //for printing the input program
+			     	 for(int i=0;i<tokens.length;i++)
 			     	 	System.out.print(tokens[i]+"\t");
-			     	 System.out.println("");
+			     	System.out.println("");
+			     	 
 			     	if(!tokens[0].equals(""))
 			     	{
-			 
-			     		//Inserting into Symbol Table
+			
 			     		SymbolTab[symTabLine][0]=tokens[0];
 			     		SymbolTab[symTabLine][1]=Integer.toString(LC);
 			     		SymbolTab[symTabLine][2]=Integer.toString(1);
@@ -47,40 +46,99 @@ public class SymTab
 			     	}
 				else if(tokens[1].equalsIgnoreCase("DS")||tokens[1].equalsIgnoreCase("DC"))
 				{
-					//Entry into symbol table for declarative statements
 					SymbolTab[symTabLine][0]=tokens[0];
-			     		SymbolTab[symTabLine][1]=Integer.toString(LC);
-			     		SymbolTab[symTabLine][2]=Integer.toString(1);
-			     		symTabLine++;
+			     	SymbolTab[symTabLine][1]=Integer.toString(LC);
+			     	SymbolTab[symTabLine][2]=Integer.toString(1);
+			     	symTabLine++;
 				}
 
 				if(tokens.length==3 && tokens[2].charAt(0)=='=')
 				{
-					//Entry of literals into literal table
 					LitTab[litTabLine][0]=tokens[2];
-			     		LitTab[litTabLine][1]=Integer.toString(LC);
-			     		litTabLine++;
+			     	LitTab[litTabLine][1]=Integer.toString(LC);
+			     	litTabLine++;
 				}
 	
 				else if(tokens[1]!=null)
 				{
-						//Entry of Mnemonic in opcode table
 					OpTab[opTabLine][0]=tokens[1];
 					
-					if(tokens[1].equalsIgnoreCase("START")||tokens[1].equalsIgnoreCase("END")||tokens[1].equalsIgnoreCase("ORIGIN")||tokens[1].equalsIgnoreCase("EQU")||tokens[1].equalsIgnoreCase("LTORG"))		//if Assembler Directive
+					if(tokens[1].equalsIgnoreCase("START")){
+						OpTab[opTabLine][1]="AD";
+						OpTab[opTabLine][2]="01";	
+						
+					}
+					else if(tokens[1].equalsIgnoreCase("END")){
+						OpTab[opTabLine][1]="AD";
+						OpTab[opTabLine][2]="02";
+							}
+					else if(tokens[1].equalsIgnoreCase("ORIGIN")){
+						OpTab[opTabLine][1]="AD";
+						OpTab[opTabLine][2]="03";
+								}
+					else if(tokens[1].equalsIgnoreCase("EQU")){
+						OpTab[opTabLine][1]="AD";
+						OpTab[opTabLine][2]="04";
+					}
+					else if(tokens[1].equalsIgnoreCase("LTORG"))	
 					{
-			     			OpTab[opTabLine][1]="AD";
-						OpTab[opTabLine][2]="R11";					
+			     		OpTab[opTabLine][1]="AD";
+						OpTab[opTabLine][2]="05";					
 					}			     	
-					else if(tokens[1].equalsIgnoreCase("DS")||tokens[1].equalsIgnoreCase("DC"))
+					else if(tokens[1].equalsIgnoreCase("DS")){
+						OpTab[opTabLine][1]="DL";
+						OpTab[opTabLine][2]="01";
+					}
+					else if(tokens[1].equalsIgnoreCase("DC"))
 					{
 						OpTab[opTabLine][1]="DL";
-						OpTab[opTabLine][2]="R7";					
+						OpTab[opTabLine][2]="02";					
 					}
-					else
+					else if(tokens[1].equalsIgnoreCase("STOP"))
 					{
 						OpTab[opTabLine][1]="IS";
-						OpTab[opTabLine][2]="(04,1)";
+						OpTab[opTabLine][2]="00";
+					}
+					else if(tokens[1].equalsIgnoreCase("ADD"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="01";
+					}else if(tokens[1].equalsIgnoreCase("SUB"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="02";
+					}else if(tokens[1].equalsIgnoreCase("MULT"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="03";
+					}else if(tokens[1].equalsIgnoreCase("MOVER"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="04";
+					}else if(tokens[1].equalsIgnoreCase("MOVEM"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="05";
+					}else if(tokens[1].equalsIgnoreCase("COMP"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="06";
+					}else if(tokens[1].equalsIgnoreCase("BC"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="07";
+					}else if(tokens[1].equalsIgnoreCase("DIV"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="08";
+					}else if(tokens[1].equalsIgnoreCase("READ"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="09";
+					}else if(tokens[1].equalsIgnoreCase("PRINT"))
+					{
+						OpTab[opTabLine][1]="IS";
+						OpTab[opTabLine][2]="10";
 					}
 			     	opTabLine++;
 				}
@@ -91,7 +149,6 @@ public class SymTab
 
 			System.out.println("_________________");  
 
-			//print symbol table
 			System.out.println("\n\n	SYMBOL TABLE		");
 			System.out.println("--------------------------");			
 			System.out.println("SYMBOL\tADDRESS\tLENGTH");
@@ -100,8 +157,6 @@ public class SymTab
 				System.out.println(SymbolTab[i][0]+"\t"+SymbolTab[i][1]+"\t"+SymbolTab[i][2]);
 			System.out.println("--------------------------");
 
-
-			//print opcode table
 			System.out.println("\n\n	OPCODE TABLE		");
 			System.out.println("----------------------------");			
 			System.out.println("MNEMONIC\tCLASS\tINFO");
@@ -110,7 +165,6 @@ public class SymTab
 				System.out.println(OpTab[i][0]+"\t\t"+OpTab[i][1]+"\t"+OpTab[i][2]);
 			System.out.println("----------------------------");
 
-			//print literal table
 			System.out.println("\n\n   LITERAL TABLE		");
 			System.out.println("-----------------");			
 			System.out.println("LITERAL\tADDRESS");
@@ -119,11 +173,9 @@ public class SymTab
 				System.out.println(LitTab[i][0]+"\t"+LitTab[i][1]);
 			System.out.println("------------------");
 	
-
-			//intialization of POOLTAB
 			for(int i=0;i<litTabLine;i++)
 			{
-				if(LitTab[i][0]!=null && LitTab[i+1][0]!=null ) //if literals are present
+				if(LitTab[i][0]!=null && LitTab[i+1][0]!=null )
 				{
 					if(i==0)
 					{
@@ -137,7 +189,6 @@ public class SymTab
 					}
 				}
 			}
-			//print pool table
 			System.out.println("\n\n   POOL TABLE		");
 			System.out.println("-----------------");			
 			System.out.println("LITERAL NUMBER");
@@ -146,9 +197,6 @@ public class SymTab
 				System.out.println(PoolTab[i]);
 			System.out.println("------------------");
 			
-			
-		
-		    // Always close files.
 		    bufferedReader.close();
 	}
 }
