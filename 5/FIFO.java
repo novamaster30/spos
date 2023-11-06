@@ -28,18 +28,19 @@ public class FIFO {
         for (int i = 0; i < pg; i++) {
             boolean check = false;
 
-            for (int k = 0; k < fr; k++)
+            for (int k = 0; k < fr; k++){
             
                 if (frame[k] == pages[i]) {
                     check = true;
                     hits++;
                 }
+            }
 
-                if (!check) {
-                    frame[j] = pages[i];
-                    j = (j + 1) % fr;
-                    faults++;
-                }
+            if (!check) {
+                frame[j] = pages[i];
+                j = (j + 1) % fr;
+                faults++;
+            }
         }
 
         System.out.println("Hits: " + hits);
