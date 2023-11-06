@@ -5,31 +5,34 @@ public class LRU {
     public static void main(String[] args) {
         Scanner sn = new Scanner(System.in);
 
-        System.out.print("Enter Number of Frames: ");
-        int frame = sn.nextInt();
+        System.out.print("Enter Number of frames: ");
+        int fr = sn.nextInt();
 
         System.out.print("Enter Number of Pages: ");
         int pg = sn.nextInt();
 
         System.out.print("Enter Pages: ");
-        ArrayList<Integer> s = new ArrayList<>(frame);
-        int pageFault = 0;
+        ArrayList<Integer> s = new ArrayList<>(fr);
+        int fault = 0;
+        int hit = 0;
 
         for (int i = 0; i < pg; i++) {
             int page = sn.nextInt();
             if (!s.contains(page)) {
-                if (s.size() == frame) {
+                if (s.size() == fr) {
                     s.remove(0);
                 }
                 s.add(page);
-                pageFault++;
+                fault++;
             }
 			else {
                 s.remove(Integer.valueOf(page));
                 s.add(page);
+                hit++;
+
             }
         }
-        System.out.println("Page Fault: " + pageFault);
-        System.out.println("Page Hit: " + (pageFault-pg));
+        System.out.println("Page Fault: " + fault);
+        System.out.println("Page Hit: " + hit);
     }
 }
