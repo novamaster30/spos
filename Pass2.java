@@ -1,15 +1,16 @@
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Pass2 {
+public class PASS2 {
 	public static void main(String[] Args) throws IOException{
-		 BufferedReader b1 = new BufferedReader(new FileReader("/home/student/Desktop/Pass2/intermediate.txt"));
-	     BufferedReader b2 = new BufferedReader(new FileReader("/home/student/Desktop/Pass2/symtab.txt"));
-	     BufferedReader b3 = new BufferedReader(new FileReader("/home/student/Desktop/Pass2/littab.txt"));
-	     FileWriter f1 = new FileWriter("Pass2.txt");
+		 BufferedReader b1 = new BufferedReader(new FileReader());
+	     BufferedReader b2 = new BufferedReader(new FileReader());
+	     BufferedReader b3 = new BufferedReader(new FileReader());
+	     FileWriter f1 = new FileWriter();
 	     HashMap<Integer, String> symSymbol = new HashMap<Integer, String>();
 	     HashMap<Integer, String> litSymbol = new HashMap<Integer, String>();
 	     HashMap<Integer, String> litAddr = new HashMap<Integer, String>();
