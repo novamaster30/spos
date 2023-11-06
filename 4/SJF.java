@@ -18,6 +18,8 @@ public class SJF {
 		int oribrust[]=new int[n];
 		int flag[]=new int[n];
 		
+		float AvgTAT=0,AvgWT=0;
+		
 		for(int i=0;i<n;i++)
 		{
 			System.out.print("Enter Process "+(i+1)+" Arrival Time :");
@@ -36,7 +38,9 @@ public class SJF {
 		
 		while(true)
 		{
-			int max=99,c=n;
+			int max=99;
+			int c=n;
+
 			if(tot==n)
 			{
 				break;
@@ -68,21 +72,20 @@ public class SJF {
 				}
 			}
 		}
-		float total=0,wait=0;
 		
 		System.out.print("\nProcess\t\tArrival\t\tBrust\tCompletion\t\tWT\tTAT");
 		for(int i=0;i<n;i++)
 		{
 			TAT[i]=completion[i]-arrival[i];
-			total=total+TAT[i];
+			AvgTAT=AvgTAT+TAT[i];
 			
 			WT[i]=TAT[i]-oribrust[i];
-			wait=wait+WT[i];
+			AvgWT=AvgWT+WT[i];
 			
 			System.out.print("\n"+process[i]+"\t\t"+arrival[i]+"\t\t"+oribrust[i]+"\t\t"+completion[i]+"\t\t"+WT[i]+"\t\t"+TAT[i]);
 		}
 		
-		System.out.print("\n\nAverge Wait Time :"+(wait/n));
-		System.out.print("\nAverge Turn Around Time :"+(total/n));
+		System.out.print("\n\nAverge AvgWT Time :"+(AvgWT/n));
+		System.out.print("\nAverge Turn Around Time :"+(AvgTAT/n));
 	}
 }
