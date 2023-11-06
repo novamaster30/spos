@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class RoundRobin {
+public class RR {
 	public static void main(String args[])
 	{
 		Scanner sn=new Scanner(System.in);
@@ -16,7 +16,8 @@ public class RoundRobin {
 		
 		int oribrust[]=new int[n];
 		int count,i,tq,temp,sum=0;
-		float totalavgtime = 0,totalwaittime=0;
+
+		float AvgTAT = 0,AvgWT=0;
 		
 		for(i=0;i<n;i++)
 		{
@@ -62,20 +63,22 @@ public class RoundRobin {
 			break;
 		}
 		}
+
+		
 		System.out.print("\nProcess\t      Burst Time\t       completion\t		Turnaround Time          Waiting Time\n");
 		
 		for(i=0;i<n;i++)
 		{
 			TAT[i]=completion[i]-arrival[i];
-			totalavgtime=totalavgtime+TAT[i];
+			AvgTAT=AvgTAT+TAT[i];
 			
 			WT[i]=TAT[i]-oribrust[i];
-			totalwaittime=totalwaittime+WT[i];
+			AvgWT=AvgWT+WT[i];
 			
 			System.out.print("\n " + (i + 1) + "\t\t " +oribrust[i] + "\t\t\t " +completion[i] +"\t\t\t"+ TAT[i] + "\t\t\t " + WT[i] + "\n");
 		}
-		System.out.println("\nAverage waiting Time = " +(totalwaittime / n));
-		System.out.println("\nAverage turnaround time = " +(totalavgtime / n));
+		System.out.println("\nAverage waiting Time = " +(AvgWT / n));
+		System.out.println("\nAverage turnaround time = " +(AvgTAT / n));
 	}
 	}
 	
