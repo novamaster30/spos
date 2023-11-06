@@ -5,44 +5,44 @@ public class OptimalPage {
         Scanner sn = new Scanner(System.in);
 
         System.out.print("Enter number of Frames: ");
-        int numberOfFrames = sn.nextInt();
-        int frame[] = new int[numberOfFrames];
+        int fr = sn.nextInt();
+        int frame[] = new int[fr];
 
         System.out.print("Enter number of Pages: ");
-        int numberOfPages = sn.nextInt();
+        int pg = sn.nextInt();
 
-        int pages[] = new int[numberOfPages];
+        int pages[] = new int[pg];
 
         System.out.print("Enter the pages: ");
-        for (int i = 0; i < numberOfPages; i++)
+        for (int i = 0; i < pg; i++)
             pages[i] = sn.nextInt();
 
         int faults = 0;
         int hit = 0;
 
-        for (int i = 0; i < numberOfFrames; i++){
+        for (int i = 0; i < fr; i++){
             frame[i] = -1;
         }
 
-        for (int i = 0; i < numberOfPages; i++) {
-            boolean pageFound = false;
+        for (int i = 0; i < pg; i++) {
+            boolean check = false;
 
-            for (int j = 0; j < numberOfFrames; j++) {
+            for (int j = 0; j < fr; j++) {
                 if (frame[j] == pages[i]) {
-                    pageFound = true;
+                    check = true;
                     hit++;
                     break;
                 }
             }
 
-            if (!pageFound) {
+            if (!check) {
                 int maxDistance = -1;
                 int replaceIndex = -1;
 
-                for (int j = 0; j < numberOfFrames; j++) {
+                for (int j = 0; j < fr; j++) {
                     int nextOccurrence = -1;
 
-                    for (int k = i + 1; k < numberOfPages; k++) {
+                    for (int k = i + 1; k < pg; k++) {
                         if (frame[j] == pages[k]) {
                             nextOccurrence = k;
                             break;
